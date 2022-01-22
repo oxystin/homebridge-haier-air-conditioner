@@ -127,7 +127,7 @@ export class HapHaierAC {
   };
 
   setTargetHeatingCoolingState = async (state: any) => {
-    const { mode, power } = this._device.state$.value;
+    const { power } = this._device.state$.value;
     try {
       if (state === this._api.hap.Characteristic.TargetHeatingCoolingState.OFF) {
         if (power) {
@@ -139,27 +139,21 @@ export class HapHaierAC {
 
       switch (state) {
         case this._api.hap.Characteristic.TargetHeatingCoolingState.HEAT:
-          if (mode !== Mode.HEAT) {
-            await this._device.changeState({
-              mode: Mode.HEAT,
-            });
-          }
+          await this._device.changeState({
+            mode: Mode.HEAT,
+          });
 
           return;
         case this._api.hap.Characteristic.TargetHeatingCoolingState.COOL:
-          if (mode !== Mode.COOL) {
-            await this._device.changeState({
-              mode: Mode.COOL,
-            });
-          }
+          await this._device.changeState({
+            mode: Mode.COOL,
+          });
 
           return;
         default:
-          if (mode !== this.autoMode || !power) {
-            await this._device.changeState({
-              mode: this.autoMode,
-            });
-          }
+          await this._device.changeState({
+            mode: this.autoMode,
+          });
 
           return;
       }
