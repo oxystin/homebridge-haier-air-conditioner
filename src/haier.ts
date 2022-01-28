@@ -9,15 +9,21 @@ type Config = {
   name: string;
   timeout?: number;
   treatAutoHeatAs?: 'smart' | 'fan';
+  fanSpeedControl?: boolean;
+  healthControl?: boolean;
 } & AccessoryConfig;
 
 export class HapHaierAC {
   protected readonly _api: API;
-  services: any[];
+  base_services: any[];
+  add_fanService: any;
+  add_healthService: any;
   on = 1;
   _device: HaierAC;
   log: Logger;
   autoMode: Mode;
+  fanSpeedControl: boolean;
+  healthControl: boolean
 
   constructor(log: Logger, baseConfig: Config, api: API) {
     const config = Object.assign(
@@ -34,14 +40,18 @@ export class HapHaierAC {
     const info = new api.hap.Service.AccessoryInformation();
     const thermostatService = new api.hap.Service.Thermostat();
     const fanService = new api.hap.Service.Fanv2('Fan speed');
-    const lightService = new api.hap.Service.Lightbulb('Health');
+    const healthService = new api.hap.Service.Lightbulb('Health');
 
     Object.assign(this, {
       log,
       _api: api,
       name: config.name,
-      services: [info, thermostatService, fanService, lightService],
+      base_services: [info, thermostatService],
+      add_fanService: fanService, 
+      add_healthService: healthService,
       autoMode: config.treatAutoHeatAs === 'fan' ? Mode.FAN : Mode.SMART,
+      fanSpeedControl: typeof config.fanSpeedControl  === 'undefined' ? true : config.fanSpeedControl,
+      healthControl: typeof config.healthControl  === 'undefined' ? true : config.healthControl,
       _device: new HaierAC({
         ip: config.ip,
         mac: config.mac,
@@ -90,14 +100,16 @@ export class HapHaierAC {
       .on('get', callbackify(this.getRotationSpeed))
       .on('set', callbackify(this.setRotationSpeed));
 
-    lightService
+    healthService
       .getCharacteristic(this._api.hap.Characteristic.On)
       .on('get', callbackify(this.getHealthMode))
       .on('set', callbackify(this.setHealthMode));
   }
 
   getServices() {
-    return this.services;
+    if (this.fanSpeedControl) this.base_services.push(this.add_fanService);
+    if (this.healthControl) this.base_services.push(this.add_healthService);
+    return this.base_services;
   }
 
   /**
