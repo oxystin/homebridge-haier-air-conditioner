@@ -24,6 +24,7 @@ Homebridge plugin for controlling Haier Air Conditioner. Based on [homebridge-ha
         - `treatAutoHeatAs` - `fan`/`smart` (default `fan`). Select mode binded to 'auto' in homekit
         - `fanSpeedControl` - `true`/`false` (default `true`). Enables or disables `fan speed` control
         - `healthControl` - `true`/`false` (default `true`). Enables or disables `health mode` control
+        - `healthServiceType` - `switch`/`bulb` (default `switch`). Select the type of service to enable or disable the `health mode`
 
 ## config.json
 
@@ -36,7 +37,8 @@ Homebridge plugin for controlling Haier Air Conditioner. Based on [homebridge-ha
         "name": "Living Room Conditioner",
         "treatAutoHeatAs": "fan",
         "fanSpeedControl": true,
-        "healthControl": false
+        "healthControl": false,
+        "healthServiceType": "bulb"
     }
 ]
 ```

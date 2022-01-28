@@ -9,6 +9,7 @@ type Config = {
   name: string;
   timeout?: number;
   treatAutoHeatAs?: 'smart' | 'fan';
+  healthServiceType?: 'switch' | 'bulb';
   fanSpeedControl?: boolean;
   healthControl?: boolean;
 } & AccessoryConfig;
@@ -23,13 +24,16 @@ export class HapHaierAC {
   log: Logger;
   autoMode: Mode;
   fanSpeedControl: boolean;
-  healthControl: boolean
+  healthControl: boolean;
 
   constructor(log: Logger, baseConfig: Config, api: API) {
     const config = Object.assign(
       {
         timeout: 3000,
         treatAutoHeatAs: 'fan',
+        healthServiceType: 'switch',
+        fanSpeedControl:  true,
+        healthControl: true
       },
       baseConfig,
     );
@@ -40,7 +44,9 @@ export class HapHaierAC {
     const info = new api.hap.Service.AccessoryInformation();
     const thermostatService = new api.hap.Service.Thermostat();
     const fanService = new api.hap.Service.Fanv2('Fan speed');
-    const healthService = new api.hap.Service.Lightbulb('Health');
+    const healthService = config.healthServiceType === "switch"
+        ? new api.hap.Service.Switch("Health")
+        : new api.hap.Service.Lightbulb("Health");
 
     Object.assign(this, {
       log,
@@ -50,8 +56,8 @@ export class HapHaierAC {
       add_fanService: fanService, 
       add_healthService: healthService,
       autoMode: config.treatAutoHeatAs === 'fan' ? Mode.FAN : Mode.SMART,
-      fanSpeedControl: typeof config.fanSpeedControl  === 'undefined' ? true : config.fanSpeedControl,
-      healthControl: typeof config.healthControl  === 'undefined' ? true : config.healthControl,
+      fanSpeedControl: config.fanSpeedControl,
+      healthControl: config.healthControl,
       _device: new HaierAC({
         ip: config.ip,
         mac: config.mac,
