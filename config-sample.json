@@ -2,10 +2,13 @@
   "accessories": [
     {
       "accessory": "HaierAC",
-      "ip": "192.168.31.11",
-      "mac": "0007A98E17AC",
-      "name": "Air Conditioner",
-      "treatAutoHeatAs": "fan"
+      "ip": "192.168.250.102",
+      "mac": "0007A8E578A8",
+      "name": "Living Room Conditioner",
+      "treatAutoHeatAs": "fan",
+      "fanSpeedControl": true,
+      "healthControl": false,
+      "healthServiceType": "bulb"
     }
   ]
 }
