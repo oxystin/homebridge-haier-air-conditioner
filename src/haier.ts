@@ -150,8 +150,8 @@ export class HapHaierAC {
       if (state === this._api.hap.Characteristic.TargetHeatingCoolingState.OFF) {
         if (power) {
           await this._device.off();
+          this.log.info('Mode changed: OFF');
         }
-
         return;
       }
 
@@ -160,19 +160,21 @@ export class HapHaierAC {
           await this._device.changeState({
             mode: Mode.HEAT,
           });
-
+          this.log.info('Mode changed: HEAT');
           return;
+          
         case this._api.hap.Characteristic.TargetHeatingCoolingState.COOL:
           await this._device.changeState({
             mode: Mode.COOL,
           });
-
+          this.log.info('Mode changed: COOL');
           return;
+
         default:
           await this._device.changeState({
             mode: this.autoMode,
           });
-
+          this.log.info('Mode changed: AUTO');
           return;
       }
     } catch (error) {
@@ -190,9 +192,13 @@ export class HapHaierAC {
 
   setHealthMode = async (state: any) => {
     try {
-      await this._device.changeState({
-        health: Boolean(state),
-      });
+      const hm = Boolean(state);
+      await this._device.changeState({health: hm});
+      if (hm) {
+        this.log.info('Health mode: ON');
+      } else {
+        this.log.info('Health mode: OFF');
+      }
     } catch (error) {
       this.log.error(error);
     }
@@ -207,6 +213,7 @@ export class HapHaierAC {
       await this._device.changeState({
         targetTemperature: state,
       });
+      this.log.info('Target temperature:', state);
     } catch (error) {
       this.log.error(error);
     }
@@ -229,6 +236,11 @@ export class HapHaierAC {
         : Limits.OFF;
     try {
       await this._device.changeState({ limits });
+      if (limits === Limits.OFF){
+        this.log.info('Swing mode: OFF');
+      } else {
+        this.log.info('Swing mode: ON');
+      }
     } catch (error) {
       this.log.error(error);
     }
@@ -257,14 +269,17 @@ export class HapHaierAC {
 
     if (state > 0 || (state === 0 && mode === Mode.FAN)) {
       fanSpeed = FanSpeed.MIN;
+      this.log.info('Fan speed: MIN');
     }
 
     if (state > 1) {
       fanSpeed = FanSpeed.MID;
+      this.log.info('Fan speed: MID');
     }
 
     if (state > 2) {
       fanSpeed = FanSpeed.MAX;
+      this.log.info('Fan speed: MAX');
     }
 
     try {
