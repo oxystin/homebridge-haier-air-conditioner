@@ -213,7 +213,7 @@ export class HapHaierAC {
       await this._device.changeState({
         targetTemperature: state,
       });
-      this.log.info('Target temperature changed: ', state);
+      this.log.info('Target temperature:', state);
     } catch (error) {
       this.log.error(error);
     }

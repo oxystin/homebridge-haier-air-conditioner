@@ -8,10 +8,9 @@ Homebridge plugin for controlling Haier Air Conditioner. Based on [homebridge-ha
     ```
     npm install -g homebridge-haier-air-conditioner
     ```
-    or use terminal:
-
+    or use the terminal to install the developer version:
     ```
-    npm install --save https://github.com/oxystin/homebridge-haier-air-conditioner.git
+    npm install --save https://github.com/oxystin/homebridge-haier-air-conditioner.git#dev
     ```
 2. Assign static IP address to your AC (check your router settings to do that).
 3. Update your Homebridge `config.json`. Check `config-sample.json` for reference.
@@ -52,3 +51,10 @@ Homebridge plugin for controlling Haier Air Conditioner. Based on [homebridge-ha
 - Getting and setting swing mode
 - Getting and setting wind level
 - Reacting to changes made by using AC's remote
+
+
+## Supported Models:
+
+Since I have the opportunity to test only one model of air conditioner, please indicate [here](https://github.com/oxystin/homebridge-haier-air-conditioner/issues/3) your model if it works.
+
+- AS09QS2ERA-W
