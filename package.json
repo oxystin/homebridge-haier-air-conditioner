@@ -1,6 +1,6 @@
 {
   "name": "homebridge-haier-air-conditioner",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "description": "Haier AC plugin for Homebridge",
   "author": "Vladimir Gladkov",
   "license": "MIT",
