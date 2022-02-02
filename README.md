@@ -58,10 +58,11 @@ Homebridge plugin for controlling Haier Air Conditioner. Based on [homebridge-ha
 Since I have the opportunity to test only one model of air conditioner, please indicate [here](https://github.com/oxystin/homebridge-haier-air-conditioner/issues/3) your model if it works.
 
 - AS09QS2ERA-W
+- AD35S2SS1FA
 
 ## Release notes:
 
-## 0.4.0
+### 0.4.0
 - [FIX] Fixed a bug when the air conditioner did not turn on in some modes
 - [NEW] New parameters that allow you to enable or disable services: fan speed, health mode
 - [NEW] New parameter to select the type of service to enable or disable the health mode
