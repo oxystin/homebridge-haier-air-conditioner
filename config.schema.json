@@ -1,0 +1,93 @@
+{
+    "pluginAlias": "HaierAC",
+    "pluginType": "accessory",
+    "singular": true,
+    "headerDisplay": "Homebridge plugin for controlling Haier Air Conditioner.",
+    "footerDisplay": "For a detailed description, see the [README](https://github.com/oxystin/homebridge-haier-air-conditioner).",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "title": "Device name",
+                "description": "The name of your AC",
+                "type": "string",
+                "default": "Haier AC",
+                "minLength": 1,
+                "required": true
+            },
+            "ip": {
+                "title": "IP Address",
+                "description": "The ip address of your AC",
+                "type": "string",
+                "format": "ipv4",
+                "required": true
+            },
+            "mac": {
+                "title": "MAC Address",
+                "description": "The mac address of your AC in format 0001325476AC",
+                "type": "string",
+                "minLength": 12,
+                "maxLength": 12,
+                "required": true
+            },
+            "fanSpeedControl": {
+                "title": "Use Fan Speed Control?",
+                "description": "Enables or disables FAN SPEED control in homekit",
+                "type": "boolean",
+                "default": true,
+                "required": false
+            },
+            "healthControl": {
+                "title": "Use Health Control?",
+                "description": "Enables or disables HEALTH MODE control in homekit",
+                "type": "boolean",
+                "default": true,
+                "required": false
+            },
+            "healthServiceType": {
+                "title": "HEALTH MODE (Switch/Bulb)",
+                "description": "Select the type of service to control HEALTH MODE in homekit",
+                "type": "string",
+                "oneOf": [
+                    {
+                        "title": "Switch",
+                        "enum": [
+                            "switch"
+                        ]
+                    },
+                    {
+                        "title": "Bulb",
+                        "enum": [
+                            "bulb"
+                        ]
+                    }
+                ],
+                "default": "switch",
+                "required": false
+            },
+            "treatAutoHeatAs": {
+                "title": "AUTO MODE (Fan/Smart)",
+                "description": "Select mode binded to AUTO in homekit",
+                "type": "string",
+                "oneOf": [
+                    {
+                        "title": "Fan",
+                        "enum": [
+                            "fan"
+                        ]
+                    },
+                    {
+                        "title": "Smart",
+                        "enum": [
+                            "smart"
+                        ]
+                    }
+                ],
+                "default": "fan",
+                "required": false
+            }
+        }
+    },
+    "form": null,
+    "display": null
+}
