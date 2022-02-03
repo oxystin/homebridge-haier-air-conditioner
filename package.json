@@ -1,6 +1,6 @@
 {
   "name": "homebridge-haier-air-conditioner",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Haier AC plugin for Homebridge",
   "author": "Vladimir Gladkov",
   "license": "MIT",
@@ -27,9 +27,9 @@
     "dist/"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf ./dist && tsc",
     "prepublishOnly": "npm run build",
-    "prepare": "tsc",
+    "prepare": "rm -rf ./dist && tsc",
     "start": "echo \"Error: configure and run homebridge to start\" && exit 1"
   },
   "engines": {

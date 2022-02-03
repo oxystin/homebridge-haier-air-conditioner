@@ -62,6 +62,9 @@ Since I have the opportunity to test only one model of air conditioner, please i
 
 ## Release notes:
 
+### 0.4.1
+- [NEW] Added support for GUI settings page (requires installation of Homebridge Config UI plugin)
+
 ### 0.4.0
 - [FIX] Fixed a bug when the air conditioner did not turn on in some modes
 - [NEW] New parameters that allow you to enable or disable services: fan speed, health mode
