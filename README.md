@@ -59,6 +59,7 @@ Since I have the opportunity to test only one model of air conditioner, please i
 
 - AS09QS2ERA-W
 - AD35S2SS1FA
+- HSU-07HT103/R2
 
 ## Release notes:
 

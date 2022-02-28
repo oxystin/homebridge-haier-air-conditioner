@@ -38,8 +38,15 @@ export class HapHaierAC {
       baseConfig,
     );
 
-    if (!config.ip) throw new Error('Your must provide IP address of the AC');
-    if (!config.mac) throw new Error('Your must provide mac of the AC');
+    if (!config.ip) {
+      log.error('Your must provide IP address of the AC');
+      return;
+    }
+  
+    if (!config.mac) {
+      log.error('Your must provide mac of the AC');
+      return;
+    }
 
     const info = new api.hap.Service.AccessoryInformation();
     const thermostatService = new api.hap.Service.Thermostat();
